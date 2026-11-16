@@ -4,65 +4,111 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#153e75">
+  <meta name="description" content="অনলাইন পরীক্ষা কেন্দ্রে অনুশীলন করে নিজের প্রস্তুতি যাচাই করো।">
   <title>মাস্টার্স ফাইনাল</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="theme.css?v=3">
+  <link rel="stylesheet" href="theme.css?v=20261116-4">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="#" id="homeLink"><span class="brand-mark">✦</span><span>অনলাইন পরীক্ষা কেন্দ্র<small>নিজের প্রস্তুতি যাচাই করো</small></span></a>
-  <nav><button class="nav-btn active" id="navExams">পরীক্ষা</button><button class="nav-btn" id="navAdmin">অ্যাডমিন</button></nav>
-</header>
-<main>
-  <section class="hero" id="hero">
-    <div><p class="eyebrow">LEARN · PRACTICE · IMPROVE</p><h1>প্রস্তুতি যাচাই করো,<br><em>আত্মবিশ্বাস বাড়াও।</em></h1><p class="hero-copy">ছোট প্রশ্নের উত্তর লেখো, সময়ের মধ্যে পরীক্ষা দাও এবং নিজের প্রস্তুতি যাচাই করো।</p></div>
-    <div class="hero-art" aria-hidden="true"><div class="paper">✓<span>?</span><b>✦</b></div></div>
-  </section>
-  <section id="examView">
-    <div class="section-head"><div><p class="eyebrow">AVAILABLE TESTS</p><h2>পরীক্ষার তালিকা</h2></div><button class="outline-btn" id="refreshBtn">↻ রিফ্রেশ</button></div>
-    <div id="examList" class="exam-grid"><div class="loading">পরীক্ষার তালিকা লোড হচ্ছে...</div></div>
-  </section>
-  <section id="quizView" class="hidden">
-    <div class="quiz-top"><button class="text-btn" id="backToExams">← পরীক্ষার তালিকা</button><div class="timer" id="timer">⏱ ৩০:০০</div></div>
-    <div class="quiz-heading"><p class="eyebrow" id="quizSubject">পরীক্ষা</p><h2 id="quizTitle"></h2><div class="progress"><span id="progressBar"></span></div><p class="muted" id="progressText"></p></div>
-    <div id="questionArea" class="question-card"></div>
-    <div class="quiz-actions"><button class="outline-btn" id="prevBtn">আগের প্রশ্ন</button><button class="primary-btn" id="nextBtn">পরের প্রশ্ন →</button><button class="primary-btn hidden" id="submitBtn">পরীক্ষা জমা দাও</button></div>
-  </section>
-  <section id="resultView" class="hidden">
-    <div class="result-card"><div class="result-icon">✓</div><p class="eyebrow">পরীক্ষা সম্পন্ন</p><h2>তোমার ফলাফল</h2><div class="score" id="scoreText">০ / ০</div><p id="scorePercent" class="muted"></p><div class="result-stats"><div><b id="correctCount">০</b><span>উত্তর লিখেছ</span></div><div><b id="skipCount">০</b><span>ফাঁকা রেখেছ</span></div></div><div id="reviewList" class="review-list"></div><button class="primary-btn" id="resultHome">আবার পরীক্ষা দাও</button></div>
-  </section>
-  <section id="adminView" class="hidden">
-    <div class="section-head"><div><p class="eyebrow">CONTROL PANEL</p><h2>অ্যাডমিন প্যানেল</h2></div></div>
-    <div id="adminLogin" class="admin-box">
-      <h3>অ্যাডমিন লগইন</h3><p class="muted">প্রশ্ন আপলোড ও পরীক্ষা পরিচালনার জন্য লগইন করো।</p>
-      <label>ইমেইল<input id="adminEmail" type="email" placeholder="admin@example.com"></label>
-      <label>পাসওয়ার্ড<input id="adminPassword" type="password" placeholder="পাসওয়ার্ড"></label>
-      <button class="primary-btn full" id="loginBtn">লগইন</button><p class="notice" id="loginNotice"></p>
-    </div>
-    <div id="adminDashboard" class="admin-box hidden">
-      <div class="admin-row"><div><h3>নতুন লিখিত পরীক্ষা তৈরি</h3><p class="muted">প্রশ্নগুলো সরাসরি নিচের বক্সে লিখে বা পেস্ট করে পরীক্ষা তৈরি করো।</p></div><button class="outline-btn" id="logoutBtn">লগআউট</button></div>
-      <label>পরীক্ষার নাম<input id="examTitle" placeholder="যেমন: সাধারণ জ্ঞান মডেল টেস্ট ১"></label>
-      <div class="two-col"><label>বিষয়<input id="examSubject" placeholder="যেমন: সাধারণ জ্ঞান"></label><label>সময় (মিনিট)<input id="examDuration" type="number" min="1" value="30"></label></div>
-      <label>ফলাফলে সঠিক উত্তর দেখাবে কি?
-        <select id="showAnswers"><option value="yes">হ্যাঁ — সঠিক উত্তরসহ</option><option value="no">না — শুধু উত্তর লেখা ও ফাঁকার হিসাব</option></select>
-      </label>
-      <label>প্রশ্নগুলো এখানে লিখো বা পেস্ট করো
-        <textarea id="questionsText" class="questions-input" rows="12" placeholder="১. রবীন্দ্রনাথ ঠাকুরের জন্ম-মৃত্যু সাল কত?
-উত্তর: ১৮৬১–১৯৪১
+  <header class="topbar">
+    <a class="brand" href="#" id="homeLink">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>অনলাইন পরীক্ষা কেন্দ্র<small>নিজের প্রস্তুতি যাচাই করো</small></span>
+    </a>
+    <nav aria-label="প্রধান নেভিগেশন">
+      <button class="nav-btn active" id="navExams" type="button">পরীক্ষা</button>
+      <button class="nav-btn" id="navAdmin" type="button">অ্যাডমিন</button>
+    </nav>
+  </header>
 
-২. রবীন্দ্রনাথ ঠাকুর কত সালে সাহিত্যে নোবেল পুরস্কার পান?
-উত্তর: ১৯১৩"></textarea>
-      </label>
-      <p class="file-info">প্রতিটি প্রশ্ন নতুন লাইনে ১. / ২. এভাবে লিখবে। পরের লাইনে উত্তর: লিখবে। উত্তর না থাকলেও চলবে।</p>
-      <button class="primary-btn full" id="uploadBtn">পরীক্ষা প্রকাশ করো</button><p class="notice" id="uploadNotice"></p>
-      <hr><h3>প্রকাশিত পরীক্ষা</h3><div id="adminExamList"></div>
-    </div>
-  </section>
-</main>
-<footer>© <span id="year"></span> অনলাইন পরীক্ষা কেন্দ্র · শেখো, অনুশীলন করো, এগিয়ে যাও</footer>
-<div id="toast" class="toast"></div>
-<script src="app.js"></script>
+  <main>
+    <section class="hero" id="hero">
+      <div>
+        <p class="eyebrow">LEARN · PRACTICE · IMPROVE</p>
+        <h1>প্রস্তুতি যাচাই করো,<br><em>আত্মবিশ্বাস বাড়াও।</em></h1>
+        <p class="hero-copy">নিজের প্রস্তুতিকে আরও এক ধাপ এগিয়ে নিতে অনুশীলন করো, সময় মেপে পরীক্ষা দাও এবং ফলাফল থেকে শেখো।</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="paper">✓<span>?</span><b>✦</b></div></div>
+    </section>
+
+    <section id="examView">
+      <div class="section-head">
+        <div><p class="eyebrow">AVAILABLE TESTS</p><h2>পরীক্ষার তালিকা</h2></div>
+        <button class="outline-btn" id="refreshBtn" type="button">↻ রিফ্রেশ</button>
+      </div>
+      <div id="examList" class="exam-grid"><div class="loading">পরীক্ষার তালিকা লোড হচ্ছে...</div></div>
+    </section>
+
+    <section id="quizView" class="hidden">
+      <div class="quiz-top"><button class="text-btn" id="backToExams" type="button">← পরীক্ষার তালিকা</button><div class="timer" id="timer">⏱ ৩০:০০</div></div>
+      <div class="quiz-heading">
+        <p class="eyebrow" id="quizSubject">পরীক্ষা</p>
+        <h2 id="quizTitle"></h2>
+        <div class="progress"><span id="progressBar"></span></div>
+        <p class="muted" id="progressText"></p>
+      </div>
+      <div id="questionArea" class="question-card"></div>
+      <div class="quiz-actions">
+        <button class="outline-btn" id="prevBtn" type="button">আগের প্রশ্ন</button>
+        <button class="primary-btn" id="nextBtn" type="button">পরের প্রশ্ন →</button>
+        <button class="primary-btn hidden" id="submitBtn" type="button">পরীক্ষা জমা দাও</button>
+      </div>
+    </section>
+
+    <section id="resultView" class="hidden">
+      <div class="result-card">
+        <div class="result-icon">✓</div>
+        <p class="eyebrow">পরীক্ষা সম্পন্ন</p>
+        <h2>তোমার ফলাফল</h2>
+        <div class="score" id="scoreText">০ / ০</div>
+        <p id="scorePercent" class="muted"></p>
+        <div class="result-stats">
+          <div><b id="correctCount">০</b><span>সঠিক উত্তর</span></div>
+          <div><b id="skipCount">০</b><span>উত্তর দেওয়া হয়েছে</span></div>
+        </div>
+        <div id="reviewList" class="review-list"></div>
+        <button class="primary-btn" id="resultHome" type="button">পরীক্ষার তালিকায় ফিরে যাও</button>
+      </div>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="section-head"><div><p class="eyebrow">CONTROL PANEL</p><h2>অ্যাডমিন প্যানেল</h2></div></div>
+      <div id="adminLogin" class="admin-box">
+        <h3>অ্যাডমিন লগইন</h3>
+        <p class="muted">প্রশ্ন আপলোড ও পরীক্ষা পরিচালনার জন্য লগইন করো।</p>
+        <label>ইমেইল<input id="adminEmail" type="email" placeholder="admin@example.com" autocomplete="username"></label>
+        <label>পাসওয়ার্ড<input id="adminPassword" type="password" placeholder="পাসওয়ার্ড" autocomplete="current-password"></label>
+        <button class="primary-btn full" id="loginBtn" type="button">লগইন</button>
+        <p class="notice" id="loginNotice"></p>
+      </div>
+      <div id="adminDashboard" class="admin-box hidden">
+        <div class="admin-row">
+          <div><h3>নতুন লিখিত পরীক্ষা তৈরি</h3><p class="muted">প্রশ্নগুলো নিচের বক্সে লিখে বা পেস্ট করে পরীক্ষা প্রকাশ করো।</p></div>
+          <button class="outline-btn" id="logoutBtn" type="button">লগআউট</button>
+        </div>
+        <label>পরীক্ষার নাম<input id="examTitle" placeholder="যেমন: সাধারণ জ্ঞান মডেল টেস্ট ১"></label>
+        <div class="two-col">
+          <label>বিষয়<input id="examSubject" placeholder="যেমন: সাধারণ জ্ঞান"></label>
+          <label>সময় (মিনিট)<input id="examDuration" type="number" min="1" value="30"></label>
+        </div>
+        <label>ফলাফলে সঠিক উত্তর দেখাবে কি?
+          <select id="showAnswers"><option value="yes">হ্যাঁ — সঠিক উত্তরসহ</option><option value="no">না — শুধু উত্তর লেখা ও ফলাফল</option></select>
+        </label>
+        <label>প্রশ্নগুলো এখানে লিখো বা পেস্ট করো
+          <textarea id="questionsText" class="questions-input" rows="12" placeholder="১. রবীন্দ্রনাথ ঠাকুরের জন্ম-মৃত্যু সাল কত?&#10;উত্তর: ১৮৬১–১৯৪১&#10;&#10;২. রবীন্দ্রনাথ ঠাকুর কত সালে সাহিত্যে নোবেল পুরস্কার পান?&#10;উত্তর: ১৯১৩"></textarea>
+        </label>
+        <p class="file-info">প্রতিটি প্রশ্ন নতুন লাইনে ১. / ২. এভাবে লিখবে। পরের লাইনে উত্তর: লিখে সঠিক উত্তর দেবে।</p>
+        <button class="primary-btn full" id="uploadBtn" type="button">পরীক্ষা প্রকাশ করো</button>
+        <p class="notice" id="uploadNotice"></p>
+        <hr><h3>প্রকাশিত পরীক্ষা</h3><div id="adminExamList"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> অনলাইন পরীক্ষা কেন্দ্র · শেখো, অনুশীলন করো, এগিয়ে যাও</footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
