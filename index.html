@@ -16,7 +16,7 @@
 </header>
 <main>
   <section class="hero" id="hero">
-    <div><p class="eyebrow">LEARN · PRACTICE · IMPROVE</p><h1>প্রস্তুতি যাচাই করো,<br><em>আত্মবিশ্বাস বাড়াও।</em></h1><p class="hero-copy">বিষয়ভিত্তিক MCQ পরীক্ষা দাও, সময়ের মধ্যে উত্তর দাও এবং নিজের ফলাফল দেখে নাও।</p></div>
+    <div><p class="eyebrow">LEARN · PRACTICE · IMPROVE</p><h1>প্রস্তুতি যাচাই করো,<br><em>আত্মবিশ্বাস বাড়াও।</em></h1><p class="hero-copy">ছোট প্রশ্নের উত্তর লেখো, সময়ের মধ্যে পরীক্ষা দাও এবং নিজের প্রস্তুতি যাচাই করো।</p></div>
     <div class="hero-art" aria-hidden="true"><div class="paper">✓<span>?</span><b>✦</b></div></div>
   </section>
 
@@ -33,7 +33,7 @@
   </section>
 
   <section id="resultView" class="hidden">
-    <div class="result-card"><div class="result-icon">✓</div><p class="eyebrow">পরীক্ষা সম্পন্ন</p><h2>তোমার ফলাফল</h2><div class="score" id="scoreText">০ / ০</div><p id="scorePercent" class="muted"></p><div class="result-stats"><div><b id="correctCount">০</b><span>সঠিক</span></div><div><b id="wrongCount">০</b><span>ভুল</span></div><div><b id="skipCount">০</b><span>উত্তর দাওনি</span></div></div><div id="reviewList" class="review-list"></div><button class="primary-btn" id="resultHome">আবার পরীক্ষা দাও</button></div>
+    <div class="result-card"><div class="result-icon">✓</div><p class="eyebrow">পরীক্ষা সম্পন্ন</p><h2>তোমার ফলাফল</h2><div class="score" id="scoreText">০ / ০</div><p id="scorePercent" class="muted"></p><div class="result-stats"><div><b id="correctCount">০</b><span>উত্তর লিখেছ</span></div><div><b id="wrongCount">০</b><span>—</span></div><div><b id="skipCount">০</b><span>ফাঁকা</span></div></div><div id="reviewList" class="review-list"></div><button class="primary-btn" id="resultHome">আবার পরীক্ষা দাও</button></div>
   </section>
 
   <section id="adminView" class="hidden">
@@ -45,10 +45,10 @@
       <button class="primary-btn full" id="loginBtn">লগইন</button><p class="notice" id="loginNotice"></p>
     </div>
     <div id="adminDashboard" class="admin-box hidden">
-      <div class="admin-row"><div><h3>নতুন পরীক্ষা তৈরি</h3><p class="muted">TXT ফাইলে প্রশ্ন সাজিয়ে আপলোড করো।</p></div><button class="outline-btn" id="logoutBtn">লগআউট</button></div>
+      <div class="admin-row"><div><h3>নতুন লিখিত পরীক্ষা তৈরি</h3><p class="muted">TXT ফাইলে প্রশ্ন ও সঠিক উত্তর সাজিয়ে আপলোড করো। শিক্ষার্থীরা নিজেরা উত্তর লিখবে।</p></div><button class="outline-btn" id="logoutBtn">লগআউট</button></div>
       <label>পরীক্ষার নাম<input id="examTitle" placeholder="যেমন: সাধারণ জ্ঞান মডেল টেস্ট ১"></label>
       <div class="two-col"><label>বিষয়<input id="examSubject" placeholder="যেমন: সাধারণ জ্ঞান"></label><label>সময় (মিনিট)<input id="examDuration" type="number" min="1" value="30"></label></div>
-      <label class="file-label">প্রশ্নের TXT ফাইল<input id="txtFile" type="file" accept=".txt,text/plain"></label>
+      <label class="file-label">প্রশ্ন ও সঠিক উত্তরের TXT ফাইল<input id="txtFile" type="file" accept=".txt,text/plain"></label>
       <div id="fileInfo" class="file-info">এখনো কোনো ফাইল নির্বাচন করা হয়নি।</div>
       <button class="primary-btn full" id="uploadBtn">পরীক্ষা প্রকাশ করো</button><p class="notice" id="uploadNotice"></p>
       <hr><h3>প্রকাশিত পরীক্ষা</h3><div id="adminExamList"></div>
