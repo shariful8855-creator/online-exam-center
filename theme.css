@@ -1,4 +1,0 @@
-'''
-path = Path("/mnt/data/theme.css")
-path.write_text(css, encoding="utf-8")
-print(f"তৈরি হয়েছে: {path.name} — {len(css)} characters")
