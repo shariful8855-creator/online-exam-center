@@ -1,6 +1,4 @@
-from pathlib import Path
-
-css = r'''/* PREMIUM BLUE-WHITE THEME — Online Exam Center
+/* PREMIUM BLUE-WHITE THEME — Online Exam Center
    This file only changes appearance. Keep app.js, config.js and style.css. */
 
 :root{
