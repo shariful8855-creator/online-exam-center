@@ -1,0 +1,27 @@
+/* অনলাইন পরীক্ষা কেন্দ্র — নতুন ডিজাইন */
+:root{--navy:#123b70;--blue:#2873bd;--sky:#edf5ff;--ink:#172b4d;--muted:#687991;--line:#e2eaf3;--bg:#f4f7fc}
+body{background:radial-gradient(circle at 10% 0%,#eaf3ff 0,transparent 30%),var(--bg);color:var(--ink)}
+.topbar{box-shadow:0 5px 22px #18385b0b;border-bottom:1px solid #e8eef6}
+.brand-mark{background:linear-gradient(145deg,#17477f,#398bd1);box-shadow:0 6px 15px #2463a633}
+.nav-btn,.outline-btn{transition:.2s ease;border-radius:11px}
+.nav-btn:hover,.outline-btn:hover{border-color:#9fc2e7;background:#f2f8ff;transform:translateY(-1px)}
+main{padding-top:38px}
+.hero{position:relative;background:linear-gradient(115deg,#102f5d 0%,#1d5793 58%,#3285c5 100%);border-radius:26px;box-shadow:0 18px 42px #153e7526;padding:46px 50px;min-height:275px}
+.hero:after{content:"";position:absolute;width:270px;height:270px;border:1px solid #ffffff20;border-radius:50%;right:90px;top:-125px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06;pointer-events:none}
+.hero h1{letter-spacing:-.5px}
+.paper{box-shadow:0 20px 45px #061e3f66;border:1px solid #ffffffa8}
+.exam-card,.admin-box,.question-card,.result-card{border:1px solid #e5edf6;border-radius:19px;box-shadow:0 8px 28px #17395f0c;transition:transform .2s,box-shadow .2s}
+.exam-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px #17395f16}
+.exam-card h3{color:#183c68}
+.primary-btn{background:linear-gradient(135deg,#17477f,#2877bc);border-radius:11px;box-shadow:0 5px 13px #1c548d20;transition:transform .18s,box-shadow .18s}
+.primary-btn:hover{background:linear-gradient(135deg,#123b70,#2169aa);transform:translateY(-1px);box-shadow:0 8px 17px #1c548d2b}
+.primary-btn:active{transform:translateY(0)}
+.admin-box input,.admin-box select,.questions-input,.written-answer{border-color:#dce6f1;border-radius:11px;background:#fbfdff;transition:border-color .2s,box-shadow .2s}
+.admin-box input:focus,.admin-box select:focus,.questions-input:focus,.written-answer:focus{outline:none;border-color:#70a8dc;box-shadow:0 0 0 3px #dcecff}
+.question-card{padding:30px}
+.option{border-radius:12px;transition:.18s}
+.option:hover{border-color:#9fc3e7;background:#f7fbff}
+.timer{border:1px solid #ffe1c9}
+.result-icon{box-shadow:0 5px 14px #16845b20}
+footer{color:#8998ad}
+@media(max-width:650px){main{padding-top:22px}.hero{padding:30px 23px;border-radius:20px;min-height:230px}.hero:after{right:-110px}.exam-card,.admin-box,.question-card,.result-card{border-radius:16px}.question-card{padding:20px}}
