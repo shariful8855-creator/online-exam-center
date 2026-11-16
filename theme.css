@@ -1,27 +1,232 @@
-/* অনলাইন পরীক্ষা কেন্দ্র — নতুন ডিজাইন */
-:root{--navy:#123b70;--blue:#2873bd;--sky:#edf5ff;--ink:#172b4d;--muted:#687991;--line:#e2eaf3;--bg:#f4f7fc}
-body{background:radial-gradient(circle at 10% 0%,#eaf3ff 0,transparent 30%),var(--bg);color:var(--ink)}
-.topbar{box-shadow:0 5px 22px #18385b0b;border-bottom:1px solid #e8eef6}
-.brand-mark{background:linear-gradient(145deg,#17477f,#398bd1);box-shadow:0 6px 15px #2463a633}
-.nav-btn,.outline-btn{transition:.2s ease;border-radius:11px}
-.nav-btn:hover,.outline-btn:hover{border-color:#9fc2e7;background:#f2f8ff;transform:translateY(-1px)}
+from pathlib import Path
+
+css = r'''/* অনলাইন পরীক্ষা কেন্দ্র — আকর্ষণীয় নীল-সাদা ডিজাইন */
+:root{
+  --navy:#153e75;
+  --blue:#2463a6;
+  --sky:#eaf3ff;
+  --ink:#172b4d;
+  --muted:#6b7890;
+  --line:#e3eaf2;
+  --bg:#f5f8fd;
+}
+
+/* পুরো পেজ */
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(ellipse at 8% 4%,rgba(218,235,255,.75),transparent 34%),
+    radial-gradient(ellipse at 95% 32%,rgba(232,241,255,.7),transparent 30%),
+    var(--bg);
+  color:var(--ink);
+}
+::selection{background:#cfe4ff;color:#123b70}
+
+/* উপরের নেভিগেশন */
+.topbar{
+  height:78px;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid #e5edf7;
+  box-shadow:0 7px 28px rgba(21,62,117,.07);
+  backdrop-filter:blur(12px);
+}
+.brand{gap:12px;letter-spacing:-.2px}
+.brand-mark{
+  width:43px;height:43px;border-radius:14px;
+  background:linear-gradient(145deg,#153e75,#398bd1);
+  box-shadow:0 7px 17px rgba(36,99,166,.25);
+}
+.nav-btn,.outline-btn{
+  border-radius:12px;
+  transition:all .2s ease;
+}
+.nav-btn{padding:10px 18px}
+.nav-btn.active{
+  background:#eaf3ff;border-color:#c8def6;color:#153e75;
+  box-shadow:inset 0 0 0 1px rgba(36,99,166,.04);
+}
+.nav-btn:hover,.outline-btn:hover{
+  border-color:#a9c9eb;background:#f2f8ff;
+  transform:translateY(-2px);
+}
+
+/* মূল অংশ ও হিরো ব্যানার */
 main{padding-top:38px}
-.hero{position:relative;background:linear-gradient(115deg,#102f5d 0%,#1d5793 58%,#3285c5 100%);border-radius:26px;box-shadow:0 18px 42px #153e7526;padding:46px 50px;min-height:275px}
-.hero:after{content:"";position:absolute;width:270px;height:270px;border:1px solid #ffffff20;border-radius:50%;right:90px;top:-125px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06;pointer-events:none}
-.hero h1{letter-spacing:-.5px}
-.paper{box-shadow:0 20px 45px #061e3f66;border:1px solid #ffffffa8}
-.exam-card,.admin-box,.question-card,.result-card{border:1px solid #e5edf6;border-radius:19px;box-shadow:0 8px 28px #17395f0c;transition:transform .2s,box-shadow .2s}
-.exam-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px #17395f16}
-.exam-card h3{color:#183c68}
-.primary-btn{background:linear-gradient(135deg,#17477f,#2877bc);border-radius:11px;box-shadow:0 5px 13px #1c548d20;transition:transform .18s,box-shadow .18s}
-.primary-btn:hover{background:linear-gradient(135deg,#123b70,#2169aa);transform:translateY(-1px);box-shadow:0 8px 17px #1c548d2b}
-.primary-btn:active{transform:translateY(0)}
-.admin-box input,.admin-box select,.questions-input,.written-answer{border-color:#dce6f1;border-radius:11px;background:#fbfdff;transition:border-color .2s,box-shadow .2s}
-.admin-box input:focus,.admin-box select:focus,.questions-input:focus,.written-answer:focus{outline:none;border-color:#70a8dc;box-shadow:0 0 0 3px #dcecff}
-.question-card{padding:30px}
-.option{border-radius:12px;transition:.18s}
-.option:hover{border-color:#9fc3e7;background:#f7fbff}
-.timer{border:1px solid #ffe1c9}
-.result-icon{box-shadow:0 5px 14px #16845b20}
-footer{color:#8998ad}
-@media(max-width:650px){main{padding-top:22px}.hero{padding:30px 23px;border-radius:20px;min-height:230px}.hero:after{right:-110px}.exam-card,.admin-box,.question-card,.result-card{border-radius:16px}.question-card{padding:20px}}
+.hero{
+  position:relative;
+  isolation:isolate;
+  min-height:285px;
+  padding:48px 52px;
+  margin-bottom:52px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:28px;
+  background:linear-gradient(118deg,#102f5d 0%,#194f88 52%,#3285c5 100%);
+  box-shadow:0 20px 48px rgba(21,62,117,.2);
+  overflow:hidden;
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;z-index:-1;pointer-events:none;
+  border:1px solid rgba(255,255,255,.15);border-radius:50%;
+}
+.hero:before{
+  width:360px;height:360px;right:-75px;top:-205px;
+  box-shadow:0 0 0 24px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.025);
+}
+.hero:after{
+  width:190px;height:190px;right:175px;bottom:-145px;
+  box-shadow:0 0 0 22px rgba(255,255,255,.035);
+}
+.hero .eyebrow{color:#b9d8f7}
+.hero h1{font-size:40px;line-height:1.32;letter-spacing:-.7px}
+.hero h1 em{color:#b8e0ff}
+.hero-copy{font-size:16px;line-height:1.9;color:#e0efff}
+.hero-art{position:relative;z-index:1}
+.paper{
+  border-radius:16px;
+  box-shadow:0 22px 48px rgba(3,23,49,.35);
+}
+
+/* শিরোনাম ও পরীক্ষা কার্ড */
+.section-head{margin-bottom:22px}
+.section-head h2{font-size:29px;letter-spacing:-.3px}
+.section-head .eyebrow{margin-bottom:5px}
+.exam-grid{gap:20px}
+.exam-card,.admin-box,.question-card,.result-card{
+  border:1px solid #e3ebf5;
+  border-radius:20px;
+  box-shadow:0 8px 26px rgba(23,59,99,.065);
+}
+.exam-card{
+  position:relative;
+  padding:24px;
+  gap:14px;
+  overflow:hidden;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.exam-card:before{
+  content:"";position:absolute;left:0;top:0;right:0;height:4px;
+  background:linear-gradient(90deg,#153e75,#54a0df);
+  opacity:.85;
+}
+.exam-card:hover{
+  transform:translateY(-5px);
+  border-color:#c9def3;
+  box-shadow:0 17px 36px rgba(23,59,99,.12);
+}
+.exam-card h3{font-size:20px;line-height:1.5;color:#183d6c}
+.exam-card p{line-height:1.7}
+.exam-meta{flex-wrap:wrap;gap:9px 16px}
+.exam-card .primary-btn{margin-top:5px}
+
+/* বাটন */
+.primary-btn{
+  border-radius:12px;
+  padding:12px 20px;
+  background:linear-gradient(135deg,#153e75,#2878bd);
+  box-shadow:0 6px 15px rgba(36,99,166,.2);
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.primary-btn:hover{
+  background:linear-gradient(135deg,#123563,#2169aa);
+  transform:translateY(-2px);
+  box-shadow:0 9px 20px rgba(36,99,166,.26);
+}
+.primary-btn:active{transform:translateY(0);filter:brightness(.97)}
+.outline-btn{padding:10px 16px}
+
+/* পরীক্ষা দেওয়ার অংশ */
+.quiz-top{margin-bottom:30px}
+.timer{
+  padding:9px 17px;
+  border:1px solid #ffdfc5;
+  box-shadow:0 4px 12px rgba(163,76,20,.06);
+}
+.quiz-heading{margin-bottom:22px}
+.quiz-heading h2{line-height:1.45}
+.progress{height:9px;background:#e5edf7;border-radius:20px}
+.progress span{border-radius:20px;background:linear-gradient(90deg,#2463a6,#58a3df)}
+.question-card{padding:32px}
+.question-text{line-height:1.7}
+.option{
+  border:1px solid #e3eaf2;
+  border-radius:13px;
+  padding:14px 16px;
+  transition:all .18s ease;
+}
+.option:hover{border-color:#a9c9eb;background:#f5faff;transform:translateX(2px)}
+.option.selected{border-color:#6da5d8;background:#edf6ff}
+.quiz-actions{margin-top:20px}
+
+/* অ্যাডমিন প্যানেল ও ইনপুট */
+.admin-box{padding:28px}
+.admin-box h3{line-height:1.5}
+.admin-box label{line-height:1.7}
+.admin-box input,.admin-box select,.questions-input,.written-answer{
+  border:1px solid #dce6f1;
+  border-radius:12px;
+  background:#fbfdff;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.admin-box input:focus,.admin-box select:focus,
+.questions-input:focus,.written-answer:focus{
+  outline:none;border-color:#75a9d8;background:#fff;
+  box-shadow:0 0 0 4px rgba(112,168,220,.16);
+}
+.questions-input{line-height:1.85}
+.file-info{line-height:1.8}
+.admin-row{gap:14px}
+.admin-exam{padding:15px 0}
+.delete-btn{border-radius:9px}
+
+/* ফলাফল */
+.result-card{
+  padding:40px;
+  box-shadow:0 16px 42px rgba(23,59,99,.09);
+}
+.result-icon{box-shadow:0 7px 17px rgba(22,132,91,.13)}
+.score{letter-spacing:-1.5px}
+.result-stats>div{
+  min-width:115px;padding:15px 18px;
+  border:1px solid #e5edf6;border-radius:15px;background:#f8fbff;
+}
+.review-item{line-height:1.8}
+.official-answer{border:1px solid #d9eee3}
+
+/* ফুটার ও অন্যান্য */
+.loading,.empty{border-radius:16px;background:rgba(255,255,255,.88)}
+footer{padding:28px 16px;color:#8292a8}
+.toast{box-shadow:0 10px 30px rgba(10,30,55,.2)}
+
+/* মোবাইল */
+@media(max-width:650px){
+  .topbar{height:70px;padding:0 13px}
+  .brand{font-size:15px;gap:9px}
+  .brand small{font-size:10px}
+  .brand-mark{width:36px;height:36px;border-radius:12px}
+  .nav-btn{padding:8px 11px}
+  main{padding:23px 14px 52px}
+  .hero{
+    min-height:245px;padding:31px 23px;
+    margin-bottom:38px;border-radius:22px;
+  }
+  .hero h1{font-size:29px;line-height:1.4}
+  .hero-copy{font-size:14px;line-height:1.8;max-width:95%}
+  .hero-art{width:82px;transform:scale(.68);margin-right:-18px}
+  .hero:before{right:-190px}
+  .hero:after{right:70px}
+  .section-head h2{font-size:24px}
+  .exam-grid{gap:15px}
+  .exam-card{padding:21px}
+  .admin-box{padding:21px}
+  .question-card{padding:21px}
+  .question-text{font-size:18px}
+  .result-card{padding:27px 17px}
+  .result-stats{gap:12px}
+  .result-stats>div{min-width:0;flex:1;padding:13px 8px}
+  .quiz-actions{gap:9px}
+  .quiz-actions button{min-width:0}
+}
+'''
+path = Path("/mnt/data/theme.css")
+path.write_text(css, encoding="utf-8")
+print(f"নতুন theme.css তৈরি হয়েছে: {path} ({len(css)} অক্ষর)")
