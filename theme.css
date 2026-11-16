@@ -271,7 +271,3 @@ footer{color:#8292a7;padding:28px 15px}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
-'''
-path = Path("/mnt/data/theme.css")
-path.write_text(css, encoding="utf-8")
-print(f"তৈরি হয়েছে: {path.name} — {len(css)} characters")
