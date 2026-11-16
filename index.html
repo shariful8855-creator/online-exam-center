@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153e75">
+  <title>অনলাইন পরীক্ষা কেন্দ্র</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" id="homeLink"><span class="brand-mark">✦</span><span>অনলাইন পরীক্ষা কেন্দ্র<small>নিজের প্রস্তুতি যাচাই করো</small></span></a>
+  <nav><button class="nav-btn active" id="navExams">পরীক্ষা</button><button class="nav-btn" id="navAdmin">অ্যাডমিন</button></nav>
+</header>
+<main>
+  <section class="hero" id="hero">
+    <div><p class="eyebrow">LEARN · PRACTICE · IMPROVE</p><h1>প্রস্তুতি যাচাই করো,<br><em>আত্মবিশ্বাস বাড়াও।</em></h1><p class="hero-copy">বিষয়ভিত্তিক MCQ পরীক্ষা দাও, সময়ের মধ্যে উত্তর দাও এবং নিজের ফলাফল দেখে নাও।</p></div>
+    <div class="hero-art" aria-hidden="true"><div class="paper">✓<span>?</span><b>✦</b></div></div>
+  </section>
+
+  <section id="examView">
+    <div class="section-head"><div><p class="eyebrow">AVAILABLE TESTS</p><h2>পরীক্ষার তালিকা</h2></div><button class="outline-btn" id="refreshBtn">↻ রিফ্রেশ</button></div>
+    <div id="examList" class="exam-grid"><div class="loading">পরীক্ষার তালিকা লোড হচ্ছে...</div></div>
+  </section>
+
+  <section id="quizView" class="hidden">
+    <div class="quiz-top"><button class="text-btn" id="backToExams">← পরীক্ষার তালিকা</button><div class="timer" id="timer">⏱ ৩০:০০</div></div>
+    <div class="quiz-heading"><p class="eyebrow" id="quizSubject">পরীক্ষা</p><h2 id="quizTitle"></h2><div class="progress"><span id="progressBar"></span></div><p class="muted" id="progressText"></p></div>
+    <div id="questionArea" class="question-card"></div>
+    <div class="quiz-actions"><button class="outline-btn" id="prevBtn">আগের প্রশ্ন</button><button class="primary-btn" id="nextBtn">পরের প্রশ্ন →</button><button class="primary-btn hidden" id="submitBtn">পরীক্ষা জমা দাও</button></div>
+  </section>
+
+  <section id="resultView" class="hidden">
+    <div class="result-card"><div class="result-icon">✓</div><p class="eyebrow">পরীক্ষা সম্পন্ন</p><h2>তোমার ফলাফল</h2><div class="score" id="scoreText">০ / ০</div><p id="scorePercent" class="muted"></p><div class="result-stats"><div><b id="correctCount">০</b><span>সঠিক</span></div><div><b id="wrongCount">০</b><span>ভুল</span></div><div><b id="skipCount">০</b><span>উত্তর দাওনি</span></div></div><div id="reviewList" class="review-list"></div><button class="primary-btn" id="resultHome">আবার পরীক্ষা দাও</button></div>
+  </section>
+
+  <section id="adminView" class="hidden">
+    <div class="section-head"><div><p class="eyebrow">CONTROL PANEL</p><h2>অ্যাডমিন প্যানেল</h2></div></div>
+    <div id="adminLogin" class="admin-box">
+      <h3>অ্যাডমিন লগইন</h3><p class="muted">প্রশ্ন আপলোড ও পরীক্ষা পরিচালনার জন্য লগইন করো।</p>
+      <label>ইমেইল<input id="adminEmail" type="email" placeholder="admin@example.com"></label>
+      <label>পাসওয়ার্ড<input id="adminPassword" type="password" placeholder="পাসওয়ার্ড"></label>
+      <button class="primary-btn full" id="loginBtn">লগইন</button><p class="notice" id="loginNotice"></p>
+    </div>
+    <div id="adminDashboard" class="admin-box hidden">
+      <div class="admin-row"><div><h3>নতুন পরীক্ষা তৈরি</h3><p class="muted">TXT ফাইলে প্রশ্ন সাজিয়ে আপলোড করো।</p></div><button class="outline-btn" id="logoutBtn">লগআউট</button></div>
+      <label>পরীক্ষার নাম<input id="examTitle" placeholder="যেমন: সাধারণ জ্ঞান মডেল টেস্ট ১"></label>
+      <div class="two-col"><label>বিষয়<input id="examSubject" placeholder="যেমন: সাধারণ জ্ঞান"></label><label>সময় (মিনিট)<input id="examDuration" type="number" min="1" value="30"></label></div>
+      <label class="file-label">প্রশ্নের TXT ফাইল<input id="txtFile" type="file" accept=".txt,text/plain"></label>
+      <div id="fileInfo" class="file-info">এখনো কোনো ফাইল নির্বাচন করা হয়নি।</div>
+      <button class="primary-btn full" id="uploadBtn">পরীক্ষা প্রকাশ করো</button><p class="notice" id="uploadNotice"></p>
+      <hr><h3>প্রকাশিত পরীক্ষা</h3><div id="adminExamList"></div>
+    </div>
+  </section>
+</main>
+<footer>© <span id="year"></span> অনলাইন পরীক্ষা কেন্দ্র · শেখো, অনুশীলন করো, এগিয়ে যাও</footer>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
